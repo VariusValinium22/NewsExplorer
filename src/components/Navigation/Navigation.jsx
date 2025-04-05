@@ -1,11 +1,12 @@
 import React from 'react';
 import './Navigation.css';
+import { Link } from "react-router-dom";
 
 function Navigation({ isLoggedIn, userName }) {
   return (
     <nav className="nav">
-      <a href="/" className="nav__link">Home</a>
-      <a href="/saved-news" className="nav__link">Saved articles</a>
+      <Link to="/" className="nav__link">Home</Link>
+      <Link to="/saved-news" className="nav__link">Saved articles</Link>
       {isLoggedIn ? (
         <button className="nav__button nav__button--user">{userName}</button>
       ) : (
