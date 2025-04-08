@@ -1,0 +1,44 @@
+/* src/components/About/About.css */
+
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 104px 60px;
+    max-width: 1140px;
+    margin: 0 auto;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .about__image {
+    width: 464px;
+    height: 464px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .about__content {
+    max-width: 600px;
+  }
+  
+  .about__title {
+    font-size: 40px;
+    font-weight: 400;
+    margin-top: 90px;
+    margin-bottom: 24px;
+    color: #1a1a1a;
+    text-align: left;
+  }
+  
+  .about__text {
+    font-family: "Roboto", fantasy;
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.6;
+    text-align: left;
+    margin-bottom: 12px;
+  }
+  

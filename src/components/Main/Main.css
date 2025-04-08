@@ -1,0 +1,31 @@
+.main {
+    padding: 40px 20px;
+  }
+  
+  .main__title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .cards__title {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 64px;
+  }
+  
+  .cards__show-more {
+    margin: 40px auto 0;
+    padding: 12px 24px;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .cards__show-more:hover {
+    opacity: 0.7;
+  }
+  
+  
