@@ -1,0 +1,148 @@
+.modal {
+    /* displays the modal to the center of the screen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0000004d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+  }
+  
+  .modal_opened {
+    visibility: visible;
+  }
+  
+  .modal__content {
+    /* colors the modal */
+    background-color: #fff;
+    position: relative;
+  
+    margin: 10px;
+    /* make the modal bigger */
+    max-width: 496px;
+    box-sizing: border-box;
+    width: 100%;
+    /* curve the corners */
+    border-radius: 10px;
+    min-height: 436px;
+  }
+  
+  .modal__container {
+    padding: 28px 28px 38px;
+  }
+  
+  .modal__header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .modal__header h2 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .modal__close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .modal__image {
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+  
+  .modal__label {
+    padding-top: 24px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .modal__form {
+    /* turn to column */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal__input {
+    /* move the labels above the inputs */
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 8px 0;
+  }
+  
+  .modal__legend {
+    padding-top: 24px;
+    font-weight: 700;
+  }
+  
+  .modal__radio-buttons {
+    /* get rid of the default border and padding */
+    border: none;
+    padding: 0;
+    /* turn the radio-buttons into a column */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal__radio-input {
+    accent-color: gray;
+  }
+  
+  .modal__radio-input:checked {
+    accent-color: black;
+  }
+  
+  .modal__label_type_radio {
+    padding-top: 8px;
+    color: #d3d3d3;
+  }
+  
+  .modal__label_type_radio:has(.modal__radio-input:checked) {
+    color: black;
+  }
+  
+  .modal__submit_container {
+    padding-top: 32px;
+    padding-bottom: 0;
+  }
+  
+  .modal__submit {
+    padding: 8px 16px;
+    background-color: #0000004d;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .modal__toggle {
+    padding: 8px 16px;
+    color: rgba(0, 0, 0, 0.5);
+    background: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .modal__error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .modal__input_error {
+    border-bottom: 1px solid red;
+    color: red;
+  }

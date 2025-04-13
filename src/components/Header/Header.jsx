@@ -1,7 +1,6 @@
 import React from "react";
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
-import Hero from "../Hero/Hero";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";

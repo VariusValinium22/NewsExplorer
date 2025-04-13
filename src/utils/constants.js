@@ -49,4 +49,8 @@ const mockArticles = [
   },
 ];
 
-export { mockArticles };
+
+const BASE_URL = "http://localhost:3001";
+
+export { mockArticles, BASE_URL };
+

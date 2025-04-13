@@ -1,6 +1,5 @@
-// src/components/About/About.jsx
 import "./About.css";
-import authorImage from "../../assets/ProMe2.png"; // Replace with your actual image
+import authorImage from "../../assets/ProMe2.png";
 
 function About() {
   return (
@@ -9,10 +8,10 @@ function About() {
       <div className="about__content">
         <h2 className="about__title">About the author</h2>
         <p className="about__text">
-          This block describes the project author. Here you should indicate your name, what you do, and which development technologies you know.
+          My name is Martin Young and I built this NewsExplorer application. I am a Software Developer with experience in MERN stack and also in C#/.NET.
         </p>
         <p className="about__text">
-          You can also talk about your experience with TripleTen, what you learned there, and how you can help potential customers.
+          I can help potential customers add value to their team with my past debugging talents and building their products.
         </p>
       </div>
     </section>
