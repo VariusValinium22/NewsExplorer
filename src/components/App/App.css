@@ -12,3 +12,7 @@
   font-size: 20px;
   width: 100%;
 }
+
+.hero-section-wrapper {
+  background: url("../../assets/PhoneInHand.jpg") center/cover no-repeat;
+}

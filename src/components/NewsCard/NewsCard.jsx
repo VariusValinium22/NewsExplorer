@@ -1,10 +1,12 @@
 import "./NewsCard.css";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import flagIcon from "../../assets/flagIcon.svg";
-import flagIconBlack from "../../assets/flagIconBlack.svg"
+import flagIconWhite from "../../assets/flag-white.svg";
+import flagIconBlack from "../../assets/flag-black.svg";
+import flagIconBlue from "../../assets/flag-blue.svg";
+import deleteWhite from "../../assets/trash-white.svg";
 
-function NewsCard({ article, onSave }) {
+function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   if (!article) {
@@ -19,10 +21,38 @@ function NewsCard({ article, onSave }) {
     onSave(article);
   };
 
+  const handleIconClick = () => {
+    if (isSavedPage) {
+      onDelete && onDelete(article);
+    } else {
+      onSave && onSave(article);
+    }
+  };
+
   return (
     <li className="news-card">
-      <button className="news-card__save-button" onClick={handleSaveClick}>
-        <img src={flagIcon} alt="Save article image" className="news-card__save-icon" />
+      <button
+        className={`news-card__save-button${isSavedPage ? " saved" : ""}`}
+        onClick={handleIconClick}
+        aria-label={
+          isSavedPage
+            ? "Delete article"
+            : isSaved
+            ? "Unsave article"
+            : "Save Article"
+        }
+      >
+        <img
+          src={
+            isSavedPage
+              ? deleteWhite
+              : isSaved
+              ? flagIconBlue
+              : flagIconWhite
+          }
+          alt="Save article image"
+          className={`news-card__save-icon ${isSaved ? "saved" : ""}`}
+        />
       </button>
       <img
         src={article.image}

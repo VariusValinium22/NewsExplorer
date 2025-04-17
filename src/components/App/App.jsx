@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { mockArticles } from "../../utils/constants";
 import { useModal } from "../../contexts/ModalContext";
+import { useNavigate } from "react-router-dom";
+
 import LoginModal from "../../Modals/LoginModal";
 import RegisterModal from "../../Modals/RegisterModal";
 import { register, login, checkToken } from "../../utils/auth";
@@ -18,13 +20,19 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
-  const { activeModal, closeModal, openModal } = useModal();
+  
+  // Only need closeModal for closing the handleLogin and handleRegister functions
+  /* const { activeModal, closeModal, openModal } = useModal(); */
+  const { closeModal } = useModal();
+
   const [isLoading, setIsLoading] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     setCurrentUser({ name: "Martin", email: "Martin@example.com" });
-    setIsLoggedIn(true);
+    setIsLoggedIn(false);
   }, []);
 
   const handleSearch = (query) => {
@@ -44,7 +52,8 @@ function App() {
 
   const handleLogin = (email, password, userName) => {
     setIsLoading(true);
-    return login(email, password, userName)
+    // Uncomment to set up with API
+    /* return login(email, password, userName)
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         setIsLoggedIn(true);
@@ -52,7 +61,7 @@ function App() {
       })
       .then((userData) => {
         setCurrentUser(userData);
-        closeActiveModal();
+        closeModal();
         return Promise.resolve();
       })
       .catch((error) => {
@@ -60,28 +69,56 @@ function App() {
       })
       .finally(() => {
         setIsLoading(false);
-      });
+      }); */
+    // Simulate Registration
+    console.log({ email, password, userName });
+    setIsLoggedIn(true);
+    setCurrentUser({ email: email, name: userName });
+    setIsLoading(false);
+    closeModal();
   };
 
   const handleRegister = (email, password, userName) => {
     setIsLoading(true);
-    return register(email, password, userName)
+    // Uncomment to set up with API
+    /* return register(email, password, userName)
       .then(() => handleLogin(email, password))
-      .then(() => closeActiveModal())
+      .then(() => closeModal())
       .catch((error) => {
         console.error("Registration failed: ", error);
         return Promise.reject(error);
       })
       .finally(() => {
         setIsLoading(false);
-      });
+      }); */
+
+    // Simulate Registration
+    console.log({ email, password, userName });
+    setIsLoggedIn(true);
+    setCurrentUser({ name: userName, email: email });
+    setIsLoading(false);
+    closeModal();
   };
 
+  const handleLogout = () => {
+    // If using real auth later:
+    // localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    navigate("/");
+  };
+  
   const handleSaveArticle = (article) => {
     const alreadySaved = savedArticles.some((a) => a.title === article.title);
     if (alreadySaved) return;
 
     setSavedArticles([...savedArticles, article]);
+  };
+
+  const handleDeleteArticle = (articleToDelete) => {
+    setSavedArticles((prev) =>
+      prev.filter((article) => article.title !== articleToDelete.title)
+    );
   };
 
   return (
@@ -95,12 +132,16 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header onSearch={handleSearch} />
-                  <Hero onSearch={handleSearch} />
+                  <div className="hero-section-wrapper">
+                    <Header isDark={false} onSearch={handleSearch} onLogout={handleLogout} />
+                    <Hero onSearch={handleSearch} />
+                  </div>
                   <Main
                     articles={searchResults}
                     hasSearched={hasSearched}
                     onSaveArticle={handleSaveArticle}
+                    savedArticles={savedArticles}
+                    isSavedPage={false}
                   />
                   <About />
                   <Footer />
@@ -111,24 +152,31 @@ function App() {
               path="/saved-news"
               element={
                 <>
-                  <Header />
-                  <Main articles={savedArticles} />
+                  <Header isDark={true} onLogout={handleLogout} />
+                  <Main
+                    articles={savedArticles}
+                    onDeleteArticle={handleDeleteArticle}
+                    isSavedPage={true}
+                  />
                   <About />
+                  <Footer />
                 </>
               }
             />
           </Routes>
           <LoginModal
-            isOpen={activeModal === "login"}
-            closeActiveModal={closeModal}
-            setActiveModal={openModal}
+            // deleted because we are using useModal() from ModalContext
+            /*   isOpen={activeModal === "login"}
+            closeModal={closeModal}
+            setActiveModal={openModal} */
             onLogin={handleLogin}
             isLoading={isLoading}
           />
           <RegisterModal
-            isOpen={activeModal === "register"}
-            closeActiveModal={closeModal}
-            setActiveModal={openModal}
+            // deleted because we are using useModal() from ModalContext
+            /* isOpen={activeModal === "register"}
+            closeModal={closeModal}
+            setActiveModal={openModal} */
             onRegister={handleRegister}
             isLoading={isLoading}
           />

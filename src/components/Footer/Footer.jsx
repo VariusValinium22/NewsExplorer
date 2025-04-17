@@ -1,12 +1,12 @@
 // src/components/Footer/Footer.jsx
 import "./Footer.css";
-import GitHubImage from "../../assets/GitHubIcon.svg";
-import FacebookImage from "../../assets/FacebookIcon.svg";
+import GitHubImage from "../../assets/github-icon.svg";
+import FacebookImage from "../../assets/Facebook-icon.svg";
 
 function Footer() {
   return (
     <footer className="footer">
-      <p className="footer__text">© 2025 Supersite, Powered by News API</p>
+      <p className="footer__text">©{new Date().getFullYear()} Supersite, Powered by News API</p>
       <div className="footer__links">
         <a href="/" className="footer__link">Home</a>
         <a

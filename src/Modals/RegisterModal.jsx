@@ -1,18 +1,20 @@
 // src/components/Modals/RegisterModal.jsx
 import { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
+import { useModal } from "../contexts/ModalContext";
 
 const RegisterModal = ({
-  closeActiveModal,
+  /*   closeModal,
   isOpen,
+  setActiveModal, */
   onRegister,
-  setActiveModal,
   isLoading,
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { activeModal, openModal, closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,22 +25,25 @@ const RegisterModal = ({
       return;
     }
 
-    onRegister(email, password, name)
-      .then(() => setErrorMessage(""))
+    onRegister(email, password, name);
+    // comment out to simulate Registration
+    /*       .then(() => setErrorMessage(""))
       .catch((error) => {
         console.error("Registration Error: ", error);
         setErrorMessage("Registration failed. Please try again.");
-      });
+      }); */
   };
 
   return (
     <ModalWithForm
       title="Sign up"
       buttonText={isLoading ? "Signing up..." : "Sign up"}
-      isOpen={isOpen}
-      onClose={closeActiveModal}
+      /* isOpen={isOpen} */
+      isOpen={activeModal === "register"}
+      onClose={closeModal}
       onSubmit={handleSubmit}
-      toggleModal={() => setActiveModal("login")}
+      /* toggleModal={() => setActiveModal("login")} */
+      toggleModal={() => openModal("login")}
       toggleText="or Sign in"
     >
       <label htmlFor="register-email" className="modal__label">

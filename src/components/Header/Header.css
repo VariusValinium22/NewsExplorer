@@ -1,5 +1,4 @@
 .header {
-  background: url("../../assets/PhoneInHand.jpg") center/cover no-repeat;
   color: white;
 }
 
@@ -11,9 +10,17 @@
   padding: 30px 104px 26px;
 }
 
+.header-dark {
+  color: black;
+}
+
 .header__logo {
   font-size: 20px;
   font-weight: bold;
   color: white;
   text-decoration: none;
+}
+
+.header-dark .header__logo {
+  color: black;
 }

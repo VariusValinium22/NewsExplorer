@@ -5,11 +5,14 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useModal } from "../../contexts/ModalContext";
 
-function Navigation() {
+import logoutBlack from "../../assets/logout-black.svg";
+import logoutWhite from "../../assets/logout-white.svg";
+
+function Navigation({ isDark, onLogout }) {
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
   const { openModal } = useModal();
   return (
-    <nav className="nav">
+    <nav className={`nav ${isDark ? "nav-dark" : ""}`}>
       <NavLink to="/" className={getLinkClass}>
         Home
       </NavLink>
@@ -24,8 +27,13 @@ function Navigation() {
         </NavLink>
       )}
       {isLoggedIn ? (
-        <button className="nav__button nav__button--user">
+        <button className="nav__button nav__button-user" onClick={onLogout} >
           {currentUser?.name}
+          <img
+            src={isDark ? logoutBlack : logoutWhite}
+            alt="log out"
+            className="header__logout-icon"
+          />
         </button>
       ) : (
         <button className="nav__button" onClick={() => openModal("login")}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Main.css";
 import NewsCard from "../NewsCard/NewsCard";
 
-function Main({ articles, hasSearched, onSaveArticle }) {
+function Main({ articles, hasSearched, onSaveArticle, onDeleteArticle, savedArticles = [], isSavedPage }) {
   const hasResults = articles.length > 0;
   const [visibleCount, setVisibleCount] = useState(3);
   const displayedArticles = articles.slice(0, visibleCount);
@@ -14,7 +14,14 @@ function Main({ articles, hasSearched, onSaveArticle }) {
         <ul className="news-cards">
           {hasResults ? (
             displayedArticles.map((article, i) => (
-              <NewsCard key={i} article={article} onSave={onSaveArticle}/>
+              <NewsCard 
+                key={i} 
+                article={article} 
+                onSave={onSaveArticle}
+                onDelete={onDeleteArticle}
+                isSavedPage={isSavedPage}
+                isSaved={savedArticles.some((a) => a.title === article.title)}
+              />
             ))
           ) : hasSearched ? (
             <p>No articles available.</p>
