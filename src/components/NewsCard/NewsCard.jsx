@@ -1,10 +1,6 @@
 import "./NewsCard.css";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import flagIconWhite from "../../assets/flag-white.svg";
-import flagIconBlack from "../../assets/flag-black.svg";
-import flagIconBlue from "../../assets/flag-blue.svg";
-import deleteWhite from "../../assets/trash-white.svg";
 
 function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
   const { currentUser } = useContext(CurrentUserContext);
@@ -13,15 +9,11 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
     return null;
   }
 
-  const handleCardClick = () => {
-    onCardClick(article.url || "#", "_blank");
-  };
-
-  const handleSaveClick = () => {
-    onSave(article);
-  };
-
   const handleIconClick = () => {
+    if (!currentUser) {
+      return;
+    }
+
     if (isSavedPage) {
       onDelete && onDelete(article);
     } else {
@@ -31,34 +23,29 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
 
   return (
     <li className="news-card">
-      <button
-        className={`news-card__save-button${isSavedPage ? " saved" : ""}`}
-        onClick={handleIconClick}
-        aria-label={
-          isSavedPage
-            ? "Delete article"
-            : isSaved
-            ? "Unsave article"
-            : "Save Article"
-        }
-      >
-        <img
-          src={
+      <div className="news-card__button-wrapper">
+        {!currentUser && !isSavedPage && (
+          <p className="news-card__message">Sign in to save articles</p>
+        )}
+        <button
+          className={`news-card__button 
+          ${isSavedPage ? "news-card__button_deleted" : ""} 
+          ${isSaved ? "news-card__button_saved" : ""}
+          `}
+          onClick={handleIconClick}
+          aria-label={
             isSavedPage
-              ? deleteWhite
+              ? "Delete article"
               : isSaved
-              ? flagIconBlue
-              : flagIconWhite
+              ? "Unsave article"
+              : "Save Article"
           }
-          alt="Save article image"
-          className={`news-card__save-icon ${isSaved ? "saved" : ""}`}
         />
-      </button>
+      </div>
       <img
         src={article.image}
         alt={article.title}
         className="news-card__image"
-        onClick={handleCardClick}
       />
       <div className="news-card__info">
         <p className="news-card__date">{article.date}</p>

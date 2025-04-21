@@ -21,16 +21,46 @@
     padding: 12px 24px;
     height: 64px;
     width: 288px;
-    background-color: #e8e8e8;       /* light gray like Figma */
+    background-color: #FFFFFF;       /* light gray like Figma */
     border: none;
     border-radius: 48px;
     font-weight: 500;
     font-size: 18px;
     cursor: pointer;
+    transition: background-color 0.5s ease;
   }
   
   .cards__show-more:hover {
     opacity: 0.7;
+    background-color: #ebebeb;
   }
   
+  .no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 83px 0;
+  }
   
+  .no-results__icon {
+    width: 82px;
+    height: 82px;
+    margin-bottom: 24px;
+  }
+  
+  .no-results__title {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #1a1b22; 
+  }
+  
+  .no-results__text {
+    font-family: "Roboto", fantasy;
+    font-size: 18px;
+    color: #B6bcbf;
+  }
+  
+

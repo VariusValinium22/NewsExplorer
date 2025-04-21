@@ -2,7 +2,7 @@
   color: white;
 }
 
-.header__top {
+.header__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,8 +19,51 @@
   font-weight: bold;
   color: white;
   text-decoration: none;
+  padding-left: 32px;
 }
 
 .header-dark .header__logo {
   color: black;
+}
+
+.header__menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* hidden on desktop by default */
+  padding: 0;
+}
+
+.header__menu-icon {
+  width: 24px;
+  height: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .header__container {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .header__add-clothes-btn {
+    margin: 10px 0 15px 0;
+  }
+
+  .header__logo {
+    font-size: 16px;
+  }
+
+  .header__menu-button {
+    display: block;
+  }
+
+  .header__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    z-index: 5;
+  }
 }

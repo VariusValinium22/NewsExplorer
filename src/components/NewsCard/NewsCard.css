@@ -8,7 +8,7 @@
 }
 
 .news-cards_section {
-  padding: 0 104px;
+  padding: 0;
 }
 
 .news-card {
@@ -19,13 +19,13 @@
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
-  width: 100%;
-  max-width: 400px;
+  /* width: 100%; */
+  width: 400px;
   height: 576px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.news-card__save-button {
+.news-card__button {
   background: white;
   border: none;
   border-radius: 8px;
@@ -34,21 +34,66 @@
   position: absolute;
   top: 16px;
   right: 16px;
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 8px;
   padding-bottom: 4px;
+  background-image: url(../../assets/flag-white.svg);
+  transition: background-image 0.5s ease;
 }
 
-.news-card__save-button:not(.saved):hover .news-card__save-icon {
-  content: url("../../assets/flag-black.svg");
+.news-card__button:hover {
+  background-image: url(../../assets/flag-black.svg);
 }
 
-/* .news-card__save-button.saved:hover .news-card__save-icon {
-  content: url("../../assets/trash-black.svg");
-} */
+.news-card__button_saved {
+  background-image: url(../../assets/flag-blue.svg);
+}
 
-.news-card__save-icon {
-  width: 20px;
-  height: 20px;
+.news-card__button_saved:hover {
+  background-image: url(../../assets/flag-blue.svg);
+}
+
+.news-card__button_deleted {
+  background-image: url(../../assets/trash-white.svg);
+}
+
+.news-card__button_deleted:hover {
+  background-image: url(../../assets/trash-black.svg);
+}
+
+.news-card__button-wrapper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.news-card__message {
+  font-family: "Roboto", fantasy;
+  font-weight: 500;
+  position: absolute;
+  top: 50%;
+  right: 60px;
+  transform: translateY(10%);
+  font-size: 12px;
+  color: black;
+  background-color: white;
+  padding: 13px 30px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.news-card__button-wrapper:hover .news-card__message {
+  opacity: 1;
 }
 
 .news-card__image {
@@ -92,4 +137,11 @@
   font-size: 12px;
   font-weight: bold;
   color: #555;
+}
+
+@media screen and (max-width: 768px) {
+  .news-card {
+    width: 288px;
+    height: 440px;
+  }
 }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import "./SearchForm.css";
 
-function SearchForm({ onSearch }) {
+function SearchForm({ onSearch, isLoading }) {
   const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
@@ -13,8 +13,7 @@ function SearchForm({ onSearch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!query.trim()) return; // prevent empty search
-    console.log(`Searching for: ${query}`);
-    onSearch(query); // pass query up to App.jsx
+    onSearch(query);
   };
 
   return (
@@ -27,8 +26,12 @@ function SearchForm({ onSearch }) {
           value={query}
           onChange={handleChange}
         />
-        <button type="submit" className="search-form__button">
-          Search
+        <button 
+          type="submit" 
+          className={`search-form__button ${isLoading ? "loading" : ""}`}
+          disabled={isLoading}
+        >
+          {isLoading ? "Loading..." : "Search"}
         </button>
       </form>
     </section>

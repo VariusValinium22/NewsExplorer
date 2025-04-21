@@ -8,12 +8,22 @@ import { useModal } from "../../contexts/ModalContext";
 import logoutBlack from "../../assets/logout-black.svg";
 import logoutWhite from "../../assets/logout-white.svg";
 
-function Navigation({ isDark, onLogout }) {
+function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
   const { openModal } = useModal();
+
+  const handleNavClick = () => {
+    if (isMenuOpen) {
+      toggleMenu();
+    }
+  };
+
   return (
-    <nav className={`nav ${isDark ? "nav-dark" : ""}`}>
-      <NavLink to="/" className={getLinkClass}>
+    <nav
+      className={`nav ${isDark ? "nav-dark" : ""} 
+                      ${isMenuOpen ? "nav_open" : ""}`}
+    >
+      <NavLink to="/" className={getLinkClass} onClick={handleNavClick}>
         Home
       </NavLink>
       {isLoggedIn && (
@@ -22,12 +32,19 @@ function Navigation({ isDark, onLogout }) {
           className={({ isActive }) =>
             `nav__link ${isActive ? "nav__link_active" : ""}`
           }
+          onClick={handleNavClick}
         >
           Saved articles
         </NavLink>
       )}
       {isLoggedIn ? (
-        <button className="nav__button nav__button-user" onClick={onLogout} >
+        <button
+          className="nav__button nav__button-user"
+          onClick={() => {
+            onLogout();
+            handleNavClick();
+          }}
+        >
           {currentUser?.name}
           <img
             src={isDark ? logoutBlack : logoutWhite}
@@ -36,7 +53,13 @@ function Navigation({ isDark, onLogout }) {
           />
         </button>
       ) : (
-        <button className="nav__button" onClick={() => openModal("login")}>
+        <button
+          className="nav__button"
+          onClick={() => {
+            openModal("login");
+            handleNavClick();
+          }}
+        >
           Sign in
         </button>
       )}

@@ -20,24 +20,24 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
-  
-  // Only need closeModal for closing the handleLogin and handleRegister functions
-  /* const { activeModal, closeModal, openModal } = useModal(); */
-  const { closeModal } = useModal();
-
+  const { activeModal, closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    setCurrentUser({ name: "Martin", email: "Martin@example.com" });
+    /* setCurrentUser({ name: "Martin", email: "Martin@example.com" });*/
+    setCurrentUser(null);
     setIsLoggedIn(false);
   }, []);
 
   const handleSearch = (query) => {
     console.log("Searching for:", query);
     const q = query.toLowerCase();
+    // Add setTimeout: Add preloader for filtering data
+    setIsLoading(true);
+    setTimeout(() => {
+    //  
     const filtered = mockArticles.filter((article) => {
       return (
         article.title.toLowerCase().includes(q) ||
@@ -45,10 +45,12 @@ function App() {
         article.source.toLowerCase().includes(q)
       );
     });
-
     setSearchResults(filtered);
     setHasSearched(true);
-  };
+    // END Timeout: Hide preloader after filtering data
+    setIsLoading(false);
+  }, 2000);
+};
 
   const handleLogin = (email, password, userName) => {
     setIsLoading(true);
@@ -70,7 +72,7 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       }); */
-    // Simulate Registration
+    // Simulate Login
     console.log({ email, password, userName });
     setIsLoggedIn(true);
     setCurrentUser({ email: email, name: userName });
@@ -101,7 +103,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    // If using real auth later:
+    // Simulate Registration/Login
     // localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
@@ -109,9 +111,12 @@ function App() {
   };
   
   const handleSaveArticle = (article) => {
+    if (!currentUser) {
+      console.log("Not logged in. Save blocked.");
+    return;
+    }
     const alreadySaved = savedArticles.some((a) => a.title === article.title);
     if (alreadySaved) return;
-
     setSavedArticles([...savedArticles, article]);
   };
 
@@ -120,6 +125,30 @@ function App() {
       prev.filter((article) => article.title !== articleToDelete.title)
     );
   };
+
+  useEffect(() => {
+    if (!activeModal) return;
+  
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+  
+    const handleOverlayClick = (e) => {
+      if (e.target.classList.contains("modal")) {
+        closeModal();
+      }
+    };
+  
+    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("mousedown", handleOverlayClick);
+  
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("mousedown", handleOverlayClick);
+    };
+  }, [activeModal, closeModal]);
 
   return (
     <CurrentUserContext.Provider
@@ -134,7 +163,7 @@ function App() {
                 <>
                   <div className="hero-section-wrapper">
                     <Header isDark={false} onSearch={handleSearch} onLogout={handleLogout} />
-                    <Hero onSearch={handleSearch} />
+                    <Hero onSearch={handleSearch} isLoading={isLoading}/>
                   </div>
                   <Main
                     articles={searchResults}
@@ -142,6 +171,7 @@ function App() {
                     onSaveArticle={handleSaveArticle}
                     savedArticles={savedArticles}
                     isSavedPage={false}
+                    isLoading={isLoading}
                   />
                   <About />
                   <Footer />
@@ -157,6 +187,7 @@ function App() {
                     articles={savedArticles}
                     onDeleteArticle={handleDeleteArticle}
                     isSavedPage={true}
+                    isLoading={isLoading}
                   />
                   <About />
                   <Footer />
@@ -165,18 +196,10 @@ function App() {
             />
           </Routes>
           <LoginModal
-            // deleted because we are using useModal() from ModalContext
-            /*   isOpen={activeModal === "login"}
-            closeModal={closeModal}
-            setActiveModal={openModal} */
             onLogin={handleLogin}
             isLoading={isLoading}
           />
           <RegisterModal
-            // deleted because we are using useModal() from ModalContext
-            /* isOpen={activeModal === "register"}
-            closeModal={closeModal}
-            setActiveModal={openModal} */
             onRegister={handleRegister}
             isLoading={isLoading}
           />

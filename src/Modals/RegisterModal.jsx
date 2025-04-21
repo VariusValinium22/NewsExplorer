@@ -4,9 +4,6 @@ import ModalWithForm from "./ModalWithForm";
 import { useModal } from "../contexts/ModalContext";
 
 const RegisterModal = ({
-  /*   closeModal,
-  isOpen,
-  setActiveModal, */
   onRegister,
   isLoading,
 }) => {
@@ -38,11 +35,9 @@ const RegisterModal = ({
     <ModalWithForm
       title="Sign up"
       buttonText={isLoading ? "Signing up..." : "Sign up"}
-      /* isOpen={isOpen} */
       isOpen={activeModal === "register"}
       onClose={closeModal}
       onSubmit={handleSubmit}
-      /* toggleModal={() => setActiveModal("login")} */
       toggleModal={() => openModal("login")}
       toggleText="or Sign in"
     >
