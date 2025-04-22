@@ -11,7 +11,7 @@ const mockArticles = [
     title: "It's nature that makes you better",
     date: "February 19, 2019",
     source: "NATIONAL GEOGRAPHIC",
-    text: "A new look at how nature affects the mind, body, and soul reveals amazing insights.",
+    text: "A new look at how nature affects the mind, body, and soul reveals amazing insights. And this is extra text to extend the message to ensure the ellipsis is rendered properly",
     image:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
   },

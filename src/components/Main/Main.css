@@ -64,3 +64,9 @@
   }
   
 
+  @media screen and (max-width: 768px) {
+    .cards__title {
+      font-size: 30px;
+      padding: 32px 16px 58px;
+    }
+  }

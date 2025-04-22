@@ -4,7 +4,7 @@
   align-items: center;
   font-weight: 500;
   font-size: 18px;
-  margin-top: -19px;
+  margin-top: 10px;
 }
 
 .nav__link {
@@ -22,7 +22,7 @@
   content: "";
   position: absolute;
   left: 0;
-  bottom: -38px;
+  bottom: -50px;
   width: 100%;
   height: 2px;
   background-color: white;
@@ -109,14 +109,13 @@
   border-color: white;
 }
 
-/* Hide navigation by default on mobile */
 @media screen and (max-width: 768px) {
   .nav {
     display: none;
     flex-direction: column;
-    background-color: black; /* Optional */
+    background-color: black;
     position: absolute;
-    top: 80px; /* adjust as needed */
+    top: 80px;
     right: 0;
     width: 100%;
     padding: 16px;
@@ -131,7 +130,7 @@
 
   .nav.nav_open {
     display: flex;
-    height: 230px;
+    height: 174px;
     box-sizing: border-box;
   }
 
