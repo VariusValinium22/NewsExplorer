@@ -11,6 +11,7 @@ const RegisterModal = ({
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [emailError, setEmailError] = useState('');
   const { activeModal, openModal, closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -31,6 +32,21 @@ const RegisterModal = ({
       }); */
   };
 
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (!value.includes("@")) {
+      setEmailError('Invalid email address.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const isFormValid = 
+    email.includes("@") && 
+    password.length >= 4 &&
+    name.length > 0;
+
   return (
     <ModalWithForm
       title="Sign up"
@@ -39,7 +55,9 @@ const RegisterModal = ({
       onClose={closeModal}
       onSubmit={handleSubmit}
       toggleModal={() => openModal("login")}
-      toggleText="or Sign in"
+      toggleText="Sign in"
+      isSubmitDisabled={!isFormValid || isLoading}
+      onChange={handleEmailChange}
     >
       <label htmlFor="register-email" className="modal__label">
         Email *{" "}
@@ -54,6 +72,7 @@ const RegisterModal = ({
           disabled={isLoading}
           required
         />
+        {emailError && <span className="modal__error">{emailError}</span>}
       </label>
       <label htmlFor="register-password" className="modal__label">
         {errorMessage ? (

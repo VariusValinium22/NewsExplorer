@@ -61,6 +61,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 0;
+  width: fit-content;
+  justify-content: center;
 }
 
 .header__logout-icon {
@@ -79,10 +82,6 @@
   
 }
 
-.nav__link_mobile {
-  color: white;
-}
-
 .nav-dark .nav__button:hover {
   background: rgba(0, 0, 0, 0.1);
 }
@@ -98,10 +97,6 @@
 
 .nav-dark .header__logout-icon {
   filter: brightness(0);
-}
-
-.nav__link {
-  color: white;
 }
 
 .nav__button {
@@ -140,5 +135,7 @@
 
   .nav__link {
     color: white;
+    width: 100%;
+    padding-left: 32px;
   }
 }

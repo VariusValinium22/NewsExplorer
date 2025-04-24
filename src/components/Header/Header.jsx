@@ -7,7 +7,7 @@ import menuIconWhite from "../../assets/menu-white.svg";
 import menuIconBlack from "../../assets/menu-black.svg";
 import MobileMenu from "../MobileMenu/MobileMenu";
 
-function Header({ isDark, onLogout }) {
+function Header({ isDark, onLogout, activeModal }) {
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -37,12 +37,20 @@ function Header({ isDark, onLogout }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [isMenuOpen, windowWidth]);
 
+  const isMobile = windowWidth <= 768;
+  const showHeaderLogo = !activeModal || !isMobile;
+  const showMenuButton = (!activeModal || isMenuOpen || !isMobile); 
+
   return (
     <header className={`header ${isDarkHeader ? "header-dark" : "header-light"}`}>
       <div className="header__container">
+        {showHeaderLogo && (
         <Link to="/" className="header__logo">
           NewsExplorer
         </Link>
+        )}
+
+        {showMenuButton && (
         <button
           className="header__menu-button"
           onClick={toggleMenu}
@@ -50,6 +58,7 @@ function Header({ isDark, onLogout }) {
         >
           <img src={menuIcon} alt="Menu" className="header__menu-icon" />
         </button>
+        )}
         <Navigation
           isLoggedIn={isLoggedIn}
           userName={currentUser?.name}

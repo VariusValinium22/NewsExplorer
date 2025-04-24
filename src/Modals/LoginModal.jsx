@@ -11,6 +11,7 @@ const LoginModal = ({
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { activeModal, openModal, closeModal } = useModal();
+  const [emailError, setEmailError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +24,20 @@ const LoginModal = ({
     ); */
   };
 
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (!value.includes("@")) {
+      setEmailError('Invalid email address.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const isFormValid = 
+  email.includes("@") &&
+  password.length >= 4;
+
   return (
     <ModalWithForm
       title="Sign in"
@@ -31,7 +46,8 @@ const LoginModal = ({
       onClose={closeModal}
       onSubmit={handleSubmit}
       toggleModal={() => openModal("register")}
-      toggleText="or Sign up"
+      toggleText="Sign up"
+      isSubmitDisabled={!isFormValid || isLoading}
     >
       <label htmlFor="login-email" className="modal__label">
         Email
@@ -41,10 +57,11 @@ const LoginModal = ({
           className="modal__input"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
+          onChange={handleEmailChange}
           required
         />
+        {emailError && <span className="modal__error">{emailError}</span>}
       </label>
       <label htmlFor="login-password" className="modal__label">
         {errorMessage ? (

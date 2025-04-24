@@ -5,7 +5,7 @@ import Main from "../Main/Main";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, act } from "react";
 import { Routes, Route } from "react-router-dom";
 import { mockArticles } from "../../utils/constants";
 import { useModal } from "../../contexts/ModalContext";
@@ -162,7 +162,7 @@ function App() {
               element={
                 <>
                   <div className="hero-section-wrapper">
-                    <Header isDark={false} onSearch={handleSearch} onLogout={handleLogout} />
+                    <Header isDark={false} onSearch={handleSearch} onLogout={handleLogout} activeModal={activeModal}/>
                     <Hero onSearch={handleSearch} isLoading={isLoading}/>
                   </div>
                   <Main
@@ -182,7 +182,7 @@ function App() {
               path="/saved-news"
               element={
                 <>
-                  <Header isDark={true} onLogout={handleLogout} />
+                  <Header isDark={true} onLogout={handleLogout} activeModal={activeModal} />
                   <Main
                     articles={savedArticles}
                     onDeleteArticle={handleDeleteArticle}

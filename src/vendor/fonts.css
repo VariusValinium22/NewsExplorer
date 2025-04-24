@@ -18,3 +18,10 @@
   font-display: swap;
   src: url("../vendor/fonts/SourceSansPro-Regular.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  src: url("../vendor/fonts/Inter-Regular.woff2") format("woff2");
+}
