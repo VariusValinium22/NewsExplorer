@@ -5,6 +5,8 @@
   font-weight: 500;
   font-size: 18px;
   margin-top: 10px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .nav__link {
@@ -118,7 +120,7 @@
   }
 
   .nav__button {
-    width: 75%;
+    width: 100%;
     font-size: 16px;
     box-sizing: border-box;
   }
@@ -131,6 +133,7 @@
 
   .nav__link_active::after {
     background-color: black;
+    display: none;
   }
 
   .nav__link {
