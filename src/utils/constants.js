@@ -1,4 +1,4 @@
-const mockArticles = [
+/* const mockArticles = [
   {
     title: "Everyone Needs a Special 'Sit Spot' in nature",
     date: "November 4, 2020",
@@ -47,10 +47,10 @@ const mockArticles = [
     image:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
   },
-];
+]; */
 
+const BASE_URL = import.meta.env.PROD
+  ? ""
+  : "https://newsexplorer.flazzard.com";
 
-const BASE_URL = "http://localhost:3001";
-
-export { mockArticles, BASE_URL };
-
+export { BASE_URL };

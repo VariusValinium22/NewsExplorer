@@ -7,12 +7,13 @@ import Footer from "../Footer/Footer";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useState, useEffect, act } from "react";
 import { Routes, Route } from "react-router-dom";
-import { mockArticles } from "../../utils/constants";
+
 import { useModal } from "../../contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
 
 import LoginModal from "../../Modals/LoginModal";
 import RegisterModal from "../../Modals/RegisterModal";
+import { fetchNewsArticles } from "../../utils/newsApi";
 import { register, login, checkToken } from "../../utils/auth";
 
 function App() {
@@ -23,7 +24,10 @@ function App() {
   const { activeModal, closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
+
+  console.log(savedArticles)
 
   useEffect(() => {
     /* setCurrentUser({ name: "Martin", email: "Martin@example.com" });*/
@@ -32,25 +36,19 @@ function App() {
   }, []);
 
   const handleSearch = (query) => {
-    console.log("Searching for:", query);
-    const q = query.toLowerCase();
-    // Add setTimeout: Add preloader for filtering data
     setIsLoading(true);
-    setTimeout(() => {
-    //  
-    const filtered = mockArticles.filter((article) => {
-      return (
-        article.title.toLowerCase().includes(q) ||
-        article.text.toLowerCase().includes(q) ||
-        article.source.toLowerCase().includes(q)
-      );
-    });
-    setSearchResults(filtered);
-    setHasSearched(true);
-    // END Timeout: Hide preloader after filtering data
-    setIsLoading(false);
-  }, 2000);
-};
+    fetchNewsArticles(query)
+      .then((data) => {
+        setSearchResults(data.articles);
+        setHasSearched(true);
+      })
+      .catch((err) => {
+        setSearchResults([]);
+        setHasSearched(true);
+        alert("Error fetching news articles: " + err.message || err);
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   const handleLogin = (email, password, userName) => {
     setIsLoading(true);
@@ -109,15 +107,15 @@ function App() {
     setCurrentUser(null);
     navigate("/");
   };
-  
+
   const handleSaveArticle = (article) => {
     if (!currentUser) {
       console.log("Not logged in. Save blocked.");
-    return;
+      return;
     }
     const alreadySaved = savedArticles.some((a) => a.title === article.title);
     if (alreadySaved) return;
-    setSavedArticles([...savedArticles, article]);
+    setSavedArticles([...savedArticles, {...article, keyword: query}]);
   };
 
   const handleDeleteArticle = (articleToDelete) => {
@@ -128,22 +126,22 @@ function App() {
 
   useEffect(() => {
     if (!activeModal) return;
-  
+
     const handleEscClose = (e) => {
       if (e.key === "Escape") {
         closeModal();
       }
     };
-  
+
     const handleOverlayClick = (e) => {
       if (e.target.classList.contains("modal")) {
         closeModal();
       }
     };
-  
+
     document.addEventListener("keydown", handleEscClose);
     document.addEventListener("mousedown", handleOverlayClick);
-  
+
     return () => {
       document.removeEventListener("keydown", handleEscClose);
       document.removeEventListener("mousedown", handleOverlayClick);
@@ -162,8 +160,13 @@ function App() {
               element={
                 <>
                   <div className="hero-section-wrapper">
-                    <Header isDark={false} onSearch={handleSearch} onLogout={handleLogout} activeModal={activeModal}/>
-                    <Hero onSearch={handleSearch} isLoading={isLoading}/>
+                    <Header
+                      isDark={false}
+                      onSearch={handleSearch}
+                      onLogout={handleLogout}
+                      activeModal={activeModal}
+                    />
+                    <Hero onSearch={handleSearch} isLoading={isLoading} query={query} setQuery={setQuery} />
                   </div>
                   <Main
                     articles={searchResults}
@@ -182,7 +185,11 @@ function App() {
               path="/saved-news"
               element={
                 <>
-                  <Header isDark={true} onLogout={handleLogout} activeModal={activeModal} />
+                  <Header
+                    isDark={true}
+                    onLogout={handleLogout}
+                    activeModal={activeModal}
+                  />
                   <Main
                     articles={savedArticles}
                     onDeleteArticle={handleDeleteArticle}
@@ -195,14 +202,8 @@ function App() {
               }
             />
           </Routes>
-          <LoginModal
-            onLogin={handleLogin}
-            isLoading={isLoading}
-          />
-          <RegisterModal
-            onRegister={handleRegister}
-            isLoading={isLoading}
-          />
+          <LoginModal onLogin={handleLogin} isLoading={isLoading} />
+          <RegisterModal onRegister={handleRegister} isLoading={isLoading} />
         </div>
       </div>
     </CurrentUserContext.Provider>

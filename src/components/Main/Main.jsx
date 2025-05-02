@@ -16,7 +16,9 @@ function Main({
 }) {
   const hasResults = articles.length > 0;
   const [visibleCount, setVisibleCount] = useState(3);
-  const displayedArticles = articles.slice(0, visibleCount);
+  const displayedArticles = Array.isArray(articles)
+    ? articles.slice(0, visibleCount)
+    : [];
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
@@ -35,8 +37,10 @@ function Main({
                 onSave={onSaveArticle}
                 onDelete={onDeleteArticle}
                 isSavedPage={isSavedPage}
-                isSaved={!!currentUser && savedArticles.some((a) => a.title === article.title)}
-
+                isSaved={
+                  !!currentUser &&
+                  savedArticles.some((a) => a.title === article.title)
+                }
               />
             ))
           ) : hasSearched ? (

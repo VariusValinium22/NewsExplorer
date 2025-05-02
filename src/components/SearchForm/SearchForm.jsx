@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import "./SearchForm.css";
 
-function SearchForm({ onSearch, isLoading }) {
-  const [query, setQuery] = useState("");
+function SearchForm({ onSearch, isLoading, query, setQuery }) {
+  
 
   const handleChange = (e) => {
     setQuery(e.target.value);

@@ -1,10 +1,7 @@
-// src/components/MobileMenu/MobileMenu.jsx
-
 import React from "react";
 import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import closeIcon from "../../assets/close.svg";
-/* import "../../components/Header/Header.css"; */
 
 import "./MobileMenu.css";
 

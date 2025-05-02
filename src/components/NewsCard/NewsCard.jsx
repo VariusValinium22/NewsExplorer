@@ -43,15 +43,21 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
         />
       </div>
       <img
-        src={article.image}
+        src={article.urlToImage}
         alt={article.title}
         className="news-card__image"
       />
       <div className="news-card__info">
-        <p className="news-card__date">{article.date}</p>
+        <p className="news-card__date">
+          {new Date(article.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
         <h3 className="news-card__title">{article.title}</h3>
-        <p className="news-card__text">{article.text}</p>
-        <p className="news-card__source">{article.source}</p>
+        <p className="news-card__text">{article.description}</p>
+        <p className="news-card__source">{article.source?.name}</p>
       </div>
     </li>
   );
