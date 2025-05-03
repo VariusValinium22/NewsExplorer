@@ -23,6 +23,9 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
 
   return (
     <li className="news-card">
+      {isSavedPage && article.keyword && (
+        <div className="news-card__keyword">{article.keyword}</div>
+      )}
       <div className="news-card__button-wrapper">
         {!currentUser && !isSavedPage && (
           <p className="news-card__message">Sign in to save articles</p>

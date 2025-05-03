@@ -193,7 +193,6 @@
       left: 0;
       width: 100%;
       z-index: 100;
-      /* pointer-events: none; */
       justify-content: space-between;
       padding: 0 24px;
     }
@@ -220,6 +219,11 @@
     .modal__image {
       width: 26px;
       height: 26px;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .modal__mobile {
+      display: none;
     }
   }
   
