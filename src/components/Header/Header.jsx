@@ -1,26 +1,95 @@
-import React from "react";
+import { React, useState, useEffect, useRef, useContext } from "react";
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
-import SearchForm from "../SearchForm/SearchForm";
+import { Link, useLocation } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import menuIconWhite from "../../assets/menu-white.svg";
+import menuIconBlack from "../../assets/menu-black.svg";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
-function Header() {
+function Header({ isDark, onLogout, activeModal }) {
+  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const location = useLocation();
+  const isSavedNewsPage = location.pathname === "/saved-news";
+  const isDarkHeader = isSavedNewsPage;
+  const isLightTheme = !isSavedNewsPage;
+  const menuIcon = isSavedNewsPage ? menuIconBlack : menuIconWhite;
+  const wasMenuOpenRef = useRef(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newWidth = window.innerWidth;
+      if (newWidth > 768 && windowWidth <= 768) {
+        wasMenuOpenRef.current = isMenuOpen;
+        setIsMenuOpen(false);
+      }
+      if (newWidth <= 768 && windowWidth > 768) {
+        if (wasMenuOpenRef.current) {
+          setIsMenuOpen(true);
+        }
+      }
+      setWindowWidth(newWidth); 
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMenuOpen, windowWidth]);
+
+  const isMobile = windowWidth <= 768;
+  const showHeaderLogo = !activeModal || !isMobile;
+  const showMenuButton = (!activeModal || isMenuOpen || !isMobile); 
+
   return (
-    <header className="header">
-      <div className="header__top">
-        <h2 className="header__logo">NewsExplorer</h2>
-        <Navigation />
-      </div>
+    <header className={`header ${isDarkHeader ? "header-dark" : "header-light"}`}>
+      <div className="header__container">
+        {showHeaderLogo && (
+        <Link to="/" className="header__logo">
+          NewsExplorer
+        </Link>
+        )}
 
-      <div className="header__hero">
-        <h1 className="header__title">What's going on in the world?</h1>
-        <p className="header__subtitle">
-          Find the latest news on any topic and save them in your personal
-          account.
-        </p>
-        <SearchForm />
+        {showMenuButton && (
+        <button
+          className="header__menu-button"
+          onClick={toggleMenu}
+          aria-label="Toggle Menu"
+        >
+          <img src={menuIcon} alt="Menu" className="header__menu-icon" />
+        </button>
+        )}
+        <Navigation
+          isLoggedIn={isLoggedIn}
+          userName={currentUser?.name}
+          isDark={isDark}
+          onLogout={onLogout}
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+        />
+        {isMenuOpen && (
+          <>
+            <div className="header__overlay" onClick={toggleMenu}></div>
+            <MobileMenu
+              onClose={toggleMenu}
+              isLightTheme={isLightTheme}
+              onLogout={onLogout}
+              isLoggedIn={isLoggedIn}
+              currentUser={currentUser}
+            />
+          </>
+        )}
       </div>
     </header>
   );
 }
-
 export default Header;
+
+
+
+
+
+
+
+
+

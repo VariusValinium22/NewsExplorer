@@ -1,18 +1,73 @@
-import React from 'react';
-import './Navigation.css';
+import React from "react";
+import "./Navigation.css";
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useModal } from "../../contexts/ModalContext";
 
-function Navigation({ isLoggedIn, userName }) {
+import logoutBlack from "../../assets/logout-black.svg";
+import logoutWhite from "../../assets/logout-white.svg";
+
+function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
+  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+  const { openModal } = useModal();
+
+  const handleNavClick = () => {
+    if (isMenuOpen) {
+      toggleMenu();
+    }
+  };
+
   return (
-    <nav className="nav">
-      <a href="/" className="nav__link">Home</a>
-      <a href="/saved-news" className="nav__link">Saved articles</a>
+    <nav
+      className={`nav ${isDark ? "nav-dark" : ""} 
+                      ${isMenuOpen ? "nav_open" : ""}`}
+    >
+      <NavLink to="/" className={getLinkClass} onClick={handleNavClick}>
+        Home
+      </NavLink>
+      {isLoggedIn && (
+        <NavLink
+          to="/saved-news"
+          className={({ isActive }) =>
+            `nav__link ${isActive ? "nav__link_active" : ""}`
+          }
+          onClick={handleNavClick}
+        >
+          Saved articles
+        </NavLink>
+      )}
       {isLoggedIn ? (
-        <button className="nav__button nav__button--user">{userName}</button>
+        <button
+          className="nav__button nav__button-user"
+          onClick={() => {
+            onLogout();
+            handleNavClick();
+          }}
+        >
+          {currentUser?.name}
+          <img
+            src={isDark ? logoutBlack : logoutWhite}
+            alt="log out"
+            className="header__logout-icon"
+          />
+        </button>
       ) : (
-        <button className="nav__button">Sign in</button>
+        <button
+          className="nav__button"
+          onClick={() => {
+            openModal("login");
+            handleNavClick();
+          }}
+        >
+          Sign in
+        </button>
       )}
     </nav>
   );
 }
+
+const getLinkClass = ({ isActive }) =>
+  "nav__link" + (isActive ? " nav__link_active" : "");
 
 export default Navigation;

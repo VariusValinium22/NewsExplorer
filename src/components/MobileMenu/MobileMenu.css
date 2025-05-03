@@ -1,0 +1,39 @@
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  background-color: black; 
+  padding: 16px;
+  border-bottom: 1px solid gray;
+}
+
+.modal__title {
+    font-family: "Roboto", fantasy;
+    font-size: 24px;
+    font-weight: 900;
+}
+.mobile-menu__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  flex: 1;
+  padding: 40px 16px;
+  color: white;
+}
+
+.mobile-menu__link-white {
+    padding: 16px;
+}
