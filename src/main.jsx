@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { ModalProvider } from "./contexts/ModalContext";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { ModalProvider } from './contexts/ModalContext.jsx';
 
-import App from "./components/App/App";
-import "./index.css";
+import App from './components/App/App.jsx';
+import './index.css';
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-    <ModalProvider>
-      <App />
-    </ModalProvider>
+      <ModalProvider>
+        <App />
+      </ModalProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

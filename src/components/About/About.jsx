@@ -1,5 +1,5 @@
-import "./About.css";
-import authorImage from "../../assets/ProMe2.png";
+import './About.css';
+import authorImage from '../../assets/ProMe2.png';
 
 function About() {
   return (
@@ -8,10 +8,13 @@ function About() {
       <div className="about__content">
         <h2 className="about__title">About the author</h2>
         <p className="about__text">
-          My name is Martin Young and I built this NewsExplorer application. I am a Software Developer with experience in MERN stack and also in C#/.NET.
+          My name is Martin Young and I built this NewsExplorer application. I
+          am a Software Developer with experience in MERN stack and also in
+          C#/.NET.
         </p>
         <p className="about__text">
-          I can help potential customers add value to their team with my past debugging talents and building their products.
+          I can help potential customers add value to their team with my past
+          debugging talents and building their products.
         </p>
       </div>
     </section>

@@ -1,51 +1,45 @@
 // src/components/Modals/LoginModal.jsx
-import { useState } from "react";
-import ModalWithForm from "./ModalWithForm";
-import { useModal } from "../contexts/ModalContext";
+import { useState } from 'react';
+import ModalWithForm from './ModalWithForm.jsx';
+import { useModal } from '../contexts/ModalContext.jsx';
 
-const LoginModal = ({
-  onLogin,
-  isLoading,
-}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+const LoginModal = ({ onLogin, isLoading }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const { activeModal, openModal, closeModal } = useModal();
   const [emailError, setEmailError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login form submitted");
-    setErrorMessage("");
+    setErrorMessage('');
     onLogin(email, password);
     // comment out to simulate Registration
-    /*.catch(() =>
+    /* .catch(() =>
       setErrorMessage("Incorrect email or password")
     ); */
   };
 
   const handleEmailChange = (e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setEmail(value);
-    if (!value.includes("@")) {
+    if (!value.includes('@')) {
       setEmailError('Invalid email address.');
     } else {
       setEmailError('');
     }
   };
 
-  const isFormValid = 
-  email.includes("@") &&
-  password.length >= 4;
+  const isFormValid = email.includes('@') && password.length >= 4;
 
   return (
     <ModalWithForm
       title="Sign in"
-      buttonText={isLoading ? "Signing in..." : "Sign in"}
-      isOpen={activeModal === "login"}
+      buttonText={isLoading ? 'Signing in...' : 'Sign in'}
+      isOpen={activeModal === 'login'}
       onClose={closeModal}
       onSubmit={handleSubmit}
-      toggleModal={() => openModal("register")}
+      toggleModal={() => openModal('register')}
       toggleText="Sign up"
       isSubmitDisabled={!isFormValid || isLoading}
     >
@@ -72,7 +66,7 @@ const LoginModal = ({
         <input
           type="password"
           id="login-password"
-          className={`modal__input ${errorMessage && "modal__input_error"}`}
+          className={`modal__input ${errorMessage && 'modal__input_error'}`}
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

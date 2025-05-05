@@ -1,15 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Navigation from "../Navigation/Navigation";
-import closeIcon from "../../assets/close.svg";
+import { Link } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation.jsx';
+import closeIcon from '../../assets/close.svg';
 
-import "./MobileMenu.css";
+import './MobileMenu.css';
 
-function MobileMenu({ onClose, isDark, onLogout, isLoggedIn, currentUser }) {
+function MobileMenu({
+  onClose, isDark, onLogout, isLoggedIn, currentUser,
+}) {
   return (
     <div className="mobile-menu">
       <div className="mobile-menu__header">
-        <Link to="/" className="header__logo mobile-menu__link-white" onClick={onClose}>
+        <Link
+          to="/"
+          className="header__logo mobile-menu__link-white"
+          onClick={onClose}
+        >
           NewsExplorer
         </Link>
         <button className="header__menu-button" onClick={onClose}>

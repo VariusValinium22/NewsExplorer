@@ -46,7 +46,7 @@
   overflow: hidden;
   cursor: pointer;
   position: absolute;
-/*   top: 24px;
+  /*   top: 24px;
   right: 24px; */
   width: 40px;
   height: 40px;
@@ -181,7 +181,7 @@
     width: 288px;
     height: 196px;
   }
-  
+
   .news-card__info {
     padding: 16px;
   }
@@ -201,7 +201,7 @@
   .news-card__text {
     margin-bottom: 30px;
   }
-  
+
   .news-card__source {
     font-size: 16px;
     margin: 0;

@@ -1,18 +1,15 @@
-// src/components/SearchForm/SearchForm.jsx
+import './SearchForm.css';
 
-import React, { useState } from "react";
-import "./SearchForm.css";
-
-function SearchForm({ onSearch, isLoading, query, setQuery }) {
-  
-
+function SearchForm({
+  onSearch, isLoading, query, setQuery,
+}) {
   const handleChange = (e) => {
     setQuery(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!query.trim()) return; // prevent empty search
+    if (!query.trim()) return;
     onSearch(query);
   };
 
@@ -26,12 +23,12 @@ function SearchForm({ onSearch, isLoading, query, setQuery }) {
           value={query}
           onChange={handleChange}
         />
-        <button 
-          type="submit" 
-          className={`search-form__button ${isLoading ? "loading" : ""}`}
+        <button
+          type="submit"
+          className={`search-form__button ${isLoading ? 'loading' : ''}`}
           disabled={isLoading}
         >
-          {isLoading ? "Loading..." : "Search"}
+          {isLoading ? 'Loading...' : 'Search'}
         </button>
       </form>
     </section>

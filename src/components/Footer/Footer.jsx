@@ -1,7 +1,7 @@
 // src/components/Footer/Footer.jsx
-import "./Footer.css";
-import GitHubImage from "../../assets/github-icon.svg";
-import FacebookImage from "../../assets/Facebook-icon.svg";
+import './Footer.css';
+import GitHubImage from '../../assets/github-icon.svg';
+import FacebookImage from '../../assets/facebook-icon.svg';
 
 function Footer() {
   return (

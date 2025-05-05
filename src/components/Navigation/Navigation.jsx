@@ -1,14 +1,15 @@
-import React from "react";
-import "./Navigation.css";
-import { NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useModal } from "../../contexts/ModalContext";
+import { useContext } from 'react';
+import './Navigation.css';
+import { NavLink } from 'react-router-dom';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { useModal } from '../../contexts/ModalContext.jsx';
 
-import logoutBlack from "../../assets/logout-black.svg";
-import logoutWhite from "../../assets/logout-white.svg";
+import logoutBlack from '../../assets/logout-black.svg';
+import logoutWhite from '../../assets/logout-white.svg';
 
-function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
+function Navigation({
+  isDark, onLogout, isMenuOpen, toggleMenu,
+}) {
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
   const { openModal } = useModal();
 
@@ -17,11 +18,12 @@ function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
       toggleMenu();
     }
   };
+  const getLinkClass = ({ isActive }) => `nav__link${isActive ? ' nav__link_active' : ''}`;
 
   return (
     <nav
-      className={`nav ${isDark ? "nav-dark" : ""} 
-                      ${isMenuOpen ? "nav_open" : ""}`}
+      className={`nav ${isDark ? 'nav-dark' : ''} 
+                      ${isMenuOpen ? 'nav_open' : ''}`}
     >
       <NavLink to="/" className={getLinkClass} onClick={handleNavClick}>
         Home
@@ -29,8 +31,7 @@ function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
       {isLoggedIn && (
         <NavLink
           to="/saved-news"
-          className={({ isActive }) =>
-            `nav__link ${isActive ? "nav__link_active" : ""}`
+          className={({ isActive }) => `nav__link ${isActive ? 'nav__link_active' : ''}`
           }
           onClick={handleNavClick}
         >
@@ -56,7 +57,7 @@ function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
         <button
           className="nav__button"
           onClick={() => {
-            openModal("login");
+            openModal('login');
             handleNavClick();
           }}
         >
@@ -66,8 +67,5 @@ function Navigation({ isDark, onLogout, isMenuOpen, toggleMenu }) {
     </nav>
   );
 }
-
-const getLinkClass = ({ isActive }) =>
-  "nav__link" + (isActive ? " nav__link_active" : "");
 
 export default Navigation;

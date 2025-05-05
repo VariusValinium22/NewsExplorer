@@ -6,29 +6,29 @@
 .search-form {
   padding: 0;
   margin: 0;
-    display: flex;
-    position: relative;
-    /* justify-content: center; */
-    align-items: center;
-    width: 100%;
-  }
-  
-  .search-form__input {
-    width: 100%;
-    padding: 22px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 48px;
-    outline: none;
-  }
-  
-  .search-form__input:focus {
-    border-color: #007bff;
-  }
-  
-  .search-form__button {
+  display: flex;
+  position: relative;
+  /* justify-content: center; */
+  align-items: center;
+  width: 100%;
+}
+
+.search-form__input {
+  width: 100%;
+  padding: 22px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 48px;
+  outline: none;
+}
+
+.search-form__input:focus {
+  border-color: #007bff;
+}
+
+.search-form__button {
   padding: 22px 56px;
-  background-color: #2F71E5;
+  background-color: #2f71e5;
   color: white;
   font-size: 18px;
   border: none;
@@ -36,42 +36,42 @@
   cursor: pointer;
   margin-left: -50px;
   transition: background-color 0.3s ease;
-  }
-  
-  .search-form__button:hover {
-    background-color: #347EFF;
-  }
-  
-  .search-form__button.loading {
-    background-color: #2A65CC;
-    cursor: wait;
-    pointer-events: none;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .hero {
-      padding: 30px 16px;
-    }
-    .hero__title {
-      font-size: 36px;
-    }
-    .search-form {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      gap: 16px;
-    }
+}
 
-    .search-form__input {
-      width: 100%;
-      padding: 18px;
-      box-sizing: border-box;
-    }
+.search-form__button:hover {
+  background-color: #347eff;
+}
 
-    .search-form__button {
-      width: 100%;
-      margin: 0;
-      padding: 18px;
-      box-sizing: border-box;
-    }
+.search-form__button.loading {
+  background-color: #2a65cc;
+  cursor: wait;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 30px 16px;
   }
+  .hero__title {
+    font-size: 36px;
+  }
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .search-form__input {
+    width: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .search-form__button {
+    width: 100%;
+    margin: 0;
+    padding: 18px;
+    box-sizing: border-box;
+  }
+}

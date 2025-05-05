@@ -1,7 +1,8 @@
-import { BASE_URL } from "../utils/constants";
-
 const handleRequest = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(new Error(`Error: ${res.status}`));
 };
 
-export { handleRequest };
+export default handleRequest;

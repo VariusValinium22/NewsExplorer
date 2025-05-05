@@ -1,8 +1,10 @@
-import "./NewsCard.css";
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import './NewsCard.css';
+import { useContext } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
+function NewsCard({
+  article, onSave, onDelete, isSaved, isSavedPage,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   if (!article) {
@@ -15,12 +17,17 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
     }
 
     if (isSavedPage) {
-      onDelete && onDelete(article);
-    } else {
-      onSave && onSave(article);
+      if (onDelete) onDelete(article);
+    } else if (onSave) {
+      onSave(article);
     }
   };
 
+  const getButtonLabel = () => {
+    if (isSavedPage) return 'Delete article';
+    if (isSaved) return 'Unsave article';
+    return 'Save article';
+  };
   return (
     <li className="news-card">
       {isSavedPage && article.keyword && (
@@ -32,17 +39,11 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
         )}
         <button
           className={`news-card__button 
-          ${isSavedPage ? "news-card__button_deleted" : ""} 
-          ${isSaved ? "news-card__button_saved" : ""}
+          ${isSavedPage ? 'news-card__button_deleted' : ''} 
+          ${isSaved ? 'news-card__button_saved' : ''}
           `}
           onClick={handleIconClick}
-          aria-label={
-            isSavedPage
-              ? "Delete article"
-              : isSaved
-              ? "Unsave article"
-              : "Save Article"
-          }
+          aria-label={getButtonLabel()}
         />
       </div>
       <img
@@ -52,10 +53,10 @@ function NewsCard({ article, onSave, onDelete, isSaved, isSavedPage }) {
       />
       <div className="news-card__info">
         <p className="news-card__date">
-          {new Date(article.publishedAt).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
+          {new Date(article.publishedAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
           })}
         </p>
         <h3 className="news-card__title">{article.title}</h3>

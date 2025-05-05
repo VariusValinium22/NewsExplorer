@@ -1,20 +1,18 @@
-import "./App.css";
-import Header from "../Header/Header";
-import Hero from "../Hero/Hero";
-import Main from "../Main/Main";
-import About from "../About/About";
-import Footer from "../Footer/Footer";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useState, useEffect, act } from "react";
-import { Routes, Route } from "react-router-dom";
+import './App.css';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Header from '../Header/Header.jsx';
+import Hero from '../Hero/Hero.jsx';
+import Main from '../Main/Main.jsx';
+import About from '../About/About.jsx';
+import Footer from '../Footer/Footer.jsx';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-import { useModal } from "../../contexts/ModalContext";
-import { useNavigate } from "react-router-dom";
+import { useModal } from '../../contexts/ModalContext.jsx';
 
-import LoginModal from "../../Modals/LoginModal";
-import RegisterModal from "../../Modals/RegisterModal";
-import { fetchNewsArticles } from "../../utils/newsApi";
-import { register, login, checkToken } from "../../utils/auth";
+import LoginModal from '../../Modals/LoginModal.jsx';
+import RegisterModal from '../../Modals/RegisterModal.jsx';
+import fetchNewsArticles from '../../utils/newsApi';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,28 +22,26 @@ function App() {
   const { activeModal, closeModal } = useModal();
   const [isLoading, setIsLoading] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
-  console.log(savedArticles)
-
   useEffect(() => {
-    /* setCurrentUser({ name: "Martin", email: "Martin@example.com" });*/
+    /* setCurrentUser({ name: "Martin", email: "Martin@example.com" }); */
     setCurrentUser(null);
     setIsLoggedIn(false);
   }, []);
 
-  const handleSearch = (query) => {
+  const handleSearch = (q) => {
     setIsLoading(true);
-    fetchNewsArticles(query)
+    fetchNewsArticles(q)
       .then((data) => {
         setSearchResults(data.articles);
         setHasSearched(true);
       })
       .catch((err) => {
+        console.error('Error fetching news articles:', err);
         setSearchResults([]);
         setHasSearched(true);
-        alert("Error fetching news articles: " + err.message || err);
       })
       .finally(() => setIsLoading(false));
   };
@@ -71,9 +67,8 @@ function App() {
         setIsLoading(false);
       }); */
     // Simulate Login
-    console.log({ email, password, userName });
     setIsLoggedIn(true);
-    setCurrentUser({ email: email, name: userName });
+    setCurrentUser({ email, name: userName });
     setIsLoading(false);
     closeModal();
   };
@@ -93,9 +88,8 @@ function App() {
       }); */
 
     // Simulate Registration
-    console.log({ email, password, userName });
     setIsLoggedIn(true);
-    setCurrentUser({ name: userName, email: email });
+    setCurrentUser({ name: userName, email });
     setIsLoading(false);
     closeModal();
   };
@@ -105,52 +99,51 @@ function App() {
     // localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
-    navigate("/");
+    navigate('/');
   };
 
   const handleSaveArticle = (article) => {
     if (!currentUser) {
-      console.log("Not logged in. Save blocked.");
       return;
     }
     const alreadySaved = savedArticles.some((a) => a.title === article.title);
     if (alreadySaved) return;
-    setSavedArticles([...savedArticles, {...article, keyword: query}]);
+    setSavedArticles([...savedArticles, { ...article, keyword: query }]);
   };
 
   const handleDeleteArticle = (articleToDelete) => {
-    setSavedArticles((prev) =>
-      prev.filter((article) => article.title !== articleToDelete.title)
-    );
+    setSavedArticles((prev) => prev.filter((article) => article.title !== articleToDelete.title));
   };
 
   useEffect(() => {
-    if (!activeModal) return;
+    if (!activeModal) return undefined;
 
     const handleEscClose = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         closeModal();
       }
     };
 
     const handleOverlayClick = (e) => {
-      if (e.target.classList.contains("modal")) {
+      if (e.target.classList.contains('modal')) {
         closeModal();
       }
     };
 
-    document.addEventListener("keydown", handleEscClose);
-    document.addEventListener("mousedown", handleOverlayClick);
+    document.addEventListener('keydown', handleEscClose);
+    document.addEventListener('mousedown', handleOverlayClick);
 
     return () => {
-      document.removeEventListener("keydown", handleEscClose);
-      document.removeEventListener("mousedown", handleOverlayClick);
+      document.removeEventListener('keydown', handleEscClose);
+      document.removeEventListener('mousedown', handleOverlayClick);
     };
   }, [activeModal, closeModal]);
 
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn }}
+      value={{
+        currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn,
+      }}
     >
       <div className="page">
         <div className="page__content">
@@ -166,7 +159,12 @@ function App() {
                       onLogout={handleLogout}
                       activeModal={activeModal}
                     />
-                    <Hero onSearch={handleSearch} isLoading={isLoading} query={query} setQuery={setQuery} />
+                    <Hero
+                      onSearch={handleSearch}
+                      isLoading={isLoading}
+                      query={query}
+                      setQuery={setQuery}
+                    />
                   </div>
                   <Main
                     articles={searchResults}

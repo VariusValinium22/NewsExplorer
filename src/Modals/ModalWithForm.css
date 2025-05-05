@@ -1,230 +1,226 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #0000004d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.modal_opened {
+  visibility: visible;
+}
+
+modal__mobile {
+  display: none;
+}
+
+.modal__mobile-title {
+  color: #ffffff;
+  font-family: "Roboto Slab", Arial, fantasy;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.modal__content {
+  background-color: #fff;
+  position: relative;
+
+  margin: 10px;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 10px;
+  min-height: 436px;
+}
+
+.modal__container {
+  font-family: "Roboto", fantasy;
+  padding: 28px 28px 38px;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.modal__image {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.modal__label {
+  color: #2f71e5;
+  padding-top: 24px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__input {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #000;
+  padding: 8px 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.modal__radio-buttons {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__radio-input {
+  accent-color: gray;
+}
+
+.modal__radio-input:checked {
+  accent-color: black;
+}
+
+.modal__label_type_radio {
+  padding-top: 8px;
+  color: #d3d3d3;
+}
+
+.modal__label_type_radio:has(.modal__radio-input:checked) {
+  color: black;
+}
+
+.modal__submit_container {
+  padding-top: 32px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal__submit {
+  padding: 20px;
+  background-color: #e6e8eb;
+  color: #b6bcbf;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 48px;
+}
+
+.modal__submit:not(:disabled) {
+  background-color: #2f71e5;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal__toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__toggle {
+  font-family: "Inter", fantasy;
+  padding: 8px 6px;
+  color: #2f71e5;
+  background: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.modal_or {
+  font-size: 14px;
+}
+
+.modal__error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.modal__input_error {
+  border-bottom: 1px solid red;
+  color: red;
+}
+
+@media screen and (max-width: 530px) {
+  .modal__content {
+    margin: 0;
   }
-  
-  .modal_opened {
-    visibility: visible;
+  .modal {
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal__mobile {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    justify-content: space-between;
+    padding: 0 24px;
   }
 
-  modal__mobile {
+  .modal__close-desktop {
     display: none;
   }
-  
+
   .modal__mobile-title {
-    color: #FFFFFF;
+    color: #fff;
     font-family: "Roboto Slab", Arial, fantasy;
     font-size: 16px;
     font-weight: 700;
-    text-align: center;
+    text-align: left;
     pointer-events: none;
     user-select: none;
   }
-
-  .modal__content {
-    background-color: #fff;
-    position: relative;
-  
-    margin: 10px;
-    max-width: 496px;
-    box-sizing: border-box;
-    width: 100%;
-    border-radius: 10px;
-    min-height: 436px;
-  }
-  
-  .modal__container {
-    font-family: "Roboto", fantasy;
-    padding: 28px 28px 38px;
-  }
-  
-  .modal__header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
   .modal__close {
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .modal__image {
+    top: -10px;
+    right: 50px;
     width: 40px;
     height: 40px;
-    display: block;
   }
-  
-  .modal__label {
-    color: #2F71E5;
-    padding-top: 24px;
-    font-size: 12px;
-    font-weight: 400;
+  .modal__image {
+    width: 26px;
+    height: 26px;
   }
-  
-  .modal__form {
-    display: flex;
-    flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+  .modal__mobile {
+    display: none;
   }
-  
-  .modal__input {
-    display: block;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #000;
-    padding: 8px 0;
-    font-weight: 400;
-    font-size: 14px;
-  }
-  
-  .modal__radio-buttons {
-    border: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modal__radio-input {
-    accent-color: gray;
-  }
-  
-  .modal__radio-input:checked {
-    accent-color: black;
-  }
-  
-  .modal__label_type_radio {
-    padding-top: 8px;
-    color: #d3d3d3;
-  }
-  
-  .modal__label_type_radio:has(.modal__radio-input:checked) {
-    color: black;
-  }
-  
-  .modal__submit_container {
-    padding-top: 32px;
-    padding-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .modal__submit {
-    padding: 20px;
-    background-color: #E6E8EB;
-    color: #B6BCBF;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 18px;
-    border-radius: 48px;
-  }
-
-  .modal__submit:not(:disabled) {
-    background-color: #2F71E5;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  
-  .modal__toggle-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-  }
-
-  .modal__toggle {
-    font-family: "Inter", fantasy;
-    padding: 8px 6px;
-    color: #2f71e5;
-    background: none;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-weight: 400;
-    font-size: 14px;
-  }
-
-  .modal_or {
-    font-size: 14px;
-  }
-  
-  .modal__error {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  .modal__input_error {
-    border-bottom: 1px solid red;
-    color: red;
-  }
-
-  @media screen and (max-width: 530px) {
-    .modal__content {
-      margin: 0;
-    }
-    .modal {
-      align-items: flex-start;
-      padding-top: 60px;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .modal__mobile {
-      display: flex;
-      align-items: center;
-      position: absolute;
-      top: 20px;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      justify-content: space-between;
-      padding: 0 24px;
-    }
-
-    .modal__close-desktop {
-      display: none;
-    }
-
-    .modal__mobile-title {
-      color: #fff;
-      font-family: "Roboto Slab", Arial, fantasy;
-      font-size: 16px;
-      font-weight: 700;
-      text-align: left;
-      pointer-events: none;
-      user-select: none;
-    }
-    .modal__close {
-      top: -10px;
-      right: 50px;
-      width: 40px;
-      height: 40px;
-    }
-    .modal__image {
-      width: 26px;
-      height: 26px;
-    }
-  }
-  @media screen and (min-width: 768px) {
-    .modal__mobile {
-      display: none;
-    }
-  }
-  
-
+}
