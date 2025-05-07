@@ -152,7 +152,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <div className="hero-section-wrapper">
+                  <div className="hero__section-wrapper">
                     <Header
                       isDark={false}
                       onSearch={handleSearch}
@@ -194,7 +194,6 @@ function App() {
                     isSavedPage={true}
                     isLoading={isLoading}
                   />
-                  <About />
                   <Footer />
                 </>
               }

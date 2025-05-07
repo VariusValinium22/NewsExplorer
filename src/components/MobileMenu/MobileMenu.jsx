@@ -12,7 +12,7 @@ function MobileMenu({
       <div className="mobile-menu__header">
         <Link
           to="/"
-          className="header__logo mobile-menu__link-white"
+          className="header__logo mobile-menu__link--white"
           onClick={onClose}
         >
           NewsExplorer

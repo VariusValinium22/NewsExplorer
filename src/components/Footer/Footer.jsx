@@ -9,38 +9,40 @@ function Footer() {
       <p className="footer__text">
         ©{new Date().getFullYear()} Supersite, Powered by News API
       </p>
-      <div className="footer__links">
-        <a href="/" className="footer__link">
-          Home
-        </a>
-        <a
-          href="https://tripleten.com/"
-          className="footer__link"
-          target="_blank"
-          rel="noreferrer"
-        >
-          TripleTen
-        </a>
-      </div>
-      <div className="footer__icons">
-        <a
-          href="https://github.com/VariusValinium22/NewsExplorer"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img src={GitHubImage} alt="GitHub icon" className="icon__image" />
-        </a>
-        <a
-          href="https://www.facebook.com/share/1APAmGJQoW/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src={FacebookImage}
-            alt="facebook icon"
-            className="icon__image"
-          />
-        </a>
+      <div className="footer__right">
+        <div className="footer__links">
+          <a href="/" className="footer__link">
+            Home
+          </a>
+          <a
+            href="https://tripleten.com/"
+            className="footer__link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            TripleTen
+          </a>
+        </div>
+        <div className="footer__icons">
+          <a
+            href="https://github.com/VariusValinium22/NewsExplorer"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={GitHubImage} alt="GitHub icon" className="footer__icon-image" />
+          </a>
+          <a
+            href="https://www.facebook.com/share/1APAmGJQoW/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src={FacebookImage}
+              alt="facebook icon"
+              className="footer__icon-image"
+            />
+          </a>
+        </div>
       </div>
     </footer>
   );

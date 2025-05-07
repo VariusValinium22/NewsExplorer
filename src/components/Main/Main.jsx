@@ -26,16 +26,6 @@ function Main({
     .sort((a, b) => b[1] - a[1])
     .map(([keyword]) => keyword);
 
-  const getKeywordSummary = () => {
-    if (sortedKeywords.length === 0) return '';
-    if (sortedKeywords.length === 1) return `By keywords: ${sortedKeywords[0]}`;
-    if (sortedKeywords.length === 2) return `By keywords: ${sortedKeywords[0]}, ${sortedKeywords[1]}`;
-    const othersCount = sortedKeywords.length - 2;
-    return `By keywords: ${sortedKeywords[0]}, ${
-      sortedKeywords[1]
-    }, and ${othersCount} other${othersCount > 1 ? 's' : ''}`;
-  };
-
   // Sort articles by keyword frequency order
   const keywordOrder = sortedKeywords.reduce((acc, keyword, index) => {
     acc[keyword] = index;
@@ -56,7 +46,7 @@ function Main({
   const hasResults = sortedArticles.length > 0;
 
   return (
-    <section className="cards">
+    <section className={`cards ${hasResults ? 'cards--padded' : ''}`}>
       {isSavedPage && currentUser && (
         <div className="saved-header">
           <h2 className="saved-header__title">
@@ -64,16 +54,32 @@ function Main({
               sortedArticles.length
             } saved article${sortedArticles.length !== 1 ? 's' : ''}`}
           </h2>
-          <p className="saved-header__keywords">{getKeywordSummary()}</p>
+          <p className="saved-header__keywords">
+            By keywords: <strong>{sortedKeywords[0]}</strong>
+            {sortedKeywords[1] && (
+              <>
+                , <strong>{`, ${sortedKeywords[1]}`}</strong>
+              </>
+            )}
+            {sortedKeywords.length > 2 && (
+              <>
+                , and{' '}
+                <strong>
+                  {sortedKeywords.length - 2} other
+                  {sortedKeywords.length - 2 > 1 ? 's' : ''}
+                </strong>
+              </>
+            )}
+          </p>
         </div>
       )}
 
-      {!isSavedPage && hasResults && (
+      {!isSavedPage && hasResults && !isLoading && (
         <h2 className="cards__title">Search Results</h2>
       )}
 
-      <div className="news-cards_section">
-        <ul className="news-cards">
+      <div className="cards__section">
+        <ul className="cards__list">
           {isLoading && <Preloader />}
           {!isLoading &&
             hasResults &&
@@ -107,7 +113,7 @@ function Main({
         </ul>
       </div>
 
-      {hasResults && visibleCount < sortedArticles.length && (
+      {hasResults && visibleCount < sortedArticles.length && !isLoading && (
         <button
           className="cards__show-more"
           onClick={() => setVisibleCount(visibleCount + 3)}

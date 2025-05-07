@@ -89,30 +89,6 @@ modal__mobile {
   font-size: 14px;
 }
 
-.modal__radio-buttons {
-  border: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal__radio-input {
-  accent-color: gray;
-}
-
-.modal__radio-input:checked {
-  accent-color: black;
-}
-
-.modal__label_type_radio {
-  padding-top: 8px;
-  color: #d3d3d3;
-}
-
-.modal__label_type_radio:has(.modal__radio-input:checked) {
-  color: black;
-}
-
 .modal__submit_container {
   padding-top: 32px;
   padding-bottom: 0;
@@ -162,14 +138,14 @@ modal__mobile {
 }
 
 .modal__error {
-  color: red;
+  color: #ff0000;
   font-size: 14px;
   margin-top: 5px;
 }
 
 .modal__input_error {
   border-bottom: 1px solid red;
-  color: red;
+  color: #ff0000;
 }
 
 @media screen and (max-width: 530px) {
